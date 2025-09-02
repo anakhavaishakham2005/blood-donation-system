@@ -1,7 +1,6 @@
 <?php
 // includes/config.php
 session_start();
-
 $DB_HOST = "localhost";
 $DB_USER = "root"; // change if needed
 $DB_PASS = "";     // change if needed
