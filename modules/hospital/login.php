@@ -1,5 +1,6 @@
 <?php
 // modules/hospital/login.php
+session_start();
 require_once __DIR__ . '/../../includes/config.php';
 
 $err = "";
@@ -15,14 +16,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute();
         $stmt->bind_result($hospital_id, $name, $hash);
         if ($stmt->fetch()) {
-            if (password_verify($password, $hash)) {
+            // Debug: Check if password verification is working
+            $password_verify_result = password_verify($password, $hash);
+            if ($password_verify_result) {
                 $_SESSION['user_id'] = $hospital_id;
                 $_SESSION['user_role'] = 'hospital';
                 $_SESSION['user_name'] = $name;
                 header("Location: /blood-donation-system/modules/hospital/dashboard.php");
                 exit;
             } else {
-                $err = "Incorrect password.";
+                $err = "Incorrect password. (Debug: password_verify returned false)";
             }
         } else {
             $err = "No hospital found with this email.";
