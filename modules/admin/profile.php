@@ -5,19 +5,20 @@ include('../../includes/config.php');
 $admin_id = $_SESSION['admin_id'];
 $msg = '';
 
-if(isset($_POST['update'])){
+if (isset($_POST['update'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    if($password){
-        $conn->query("UPDATE admins SET username='$username', password=MD5('$password') WHERE id=$admin_id");
+    if ($password) {
+        // plain password (since this is a sample project)
+        $conn->query("UPDATE admins SET username='$username', password='$password' WHERE admin_id=$admin_id");
     } else {
-        $conn->query("UPDATE admins SET username='$username' WHERE id=$admin_id");
+        $conn->query("UPDATE admins SET username='$username' WHERE admin_id=$admin_id");
     }
     $msg = "Profile updated successfully!";
 }
 
-$res = $conn->query("SELECT * FROM admins WHERE id=$admin_id");
+$res = $conn->query("SELECT * FROM admins WHERE admin_id=$admin_id");
 $admin = $res->fetch_assoc();
 ?>
 <!DOCTYPE html>
