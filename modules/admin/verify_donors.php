@@ -5,12 +5,12 @@ include('../../includes/config.php');
 // Approve or Reject Donor
 if(isset($_GET['approve'])){
     $id = $_GET['approve'];
-    $conn->query("UPDATE donors SET status='Approved' WHERE id=$id");
+    $conn->query("UPDATE donors SET availability_status=1 WHERE donor_id=$id");
     header("Location: verify_donors.php");
 }
 if(isset($_GET['reject'])){
     $id = $_GET['reject'];
-    $conn->query("UPDATE donors SET status='Rejected' WHERE id=$id");
+    $conn->query("UPDATE donors SET availability_status=0 WHERE donor_id=$id");
     header("Location: verify_donors.php");
 }
 ?>
@@ -29,19 +29,29 @@ if(isset($_GET['reject'])){
             <th>ID</th><th>Name</th><th>Blood Group</th><th>Email</th><th>Phone</th><th>Status</th><th>Action</th>
         </tr>
         <?php
-        $res = $conn->query("SELECT * FROM donors WHERE status='Pending'");
+        // Show all donors since there's no verification status in the current schema
+        // We'll show availability_status instead
+        $res = $conn->query("SELECT * FROM donors ORDER BY donor_id DESC");
         while($row = $res->fetch_assoc()){
+            $status = $row['availability_status'] == 1 ? 'Available' : 'Not Available';
+            $statusClass = $row['availability_status'] == 1 ? 'status-approved' : 'status-rejected';
+            
             echo "<tr>
-                <td>{$row['id']}</td>
+                <td>{$row['donor_id']}</td>
                 <td>{$row['name']}</td>
                 <td>{$row['blood_group']}</td>
                 <td>{$row['email']}</td>
                 <td>{$row['phone']}</td>
-                <td>{$row['status']}</td>
-                <td>
-                    <a href='?approve={$row['id']}'>Approve</a> |
-                    <a href='?reject={$row['id']}'>Reject</a>
-                </td>
+                <td class='$statusClass'>$status</td>
+                <td>";
+            
+            if($row['availability_status'] == 1) {
+                echo "<a href='?reject={$row['donor_id']}'>Mark Unavailable</a>";
+            } else {
+                echo "<a href='?approve={$row['donor_id']}'>Mark Available</a>";
+            }
+            
+            echo "</td>
             </tr>";
         }
         ?>

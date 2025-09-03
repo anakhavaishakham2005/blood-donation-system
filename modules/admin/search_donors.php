@@ -10,7 +10,7 @@ if(isset($_GET['search'])){
     $blood = $_GET['blood_group'];
     $location = $_GET['location'];
 
-    $sql = "SELECT * FROM donors WHERE status='Approved'";
+    $sql = "SELECT * FROM donors WHERE availability_status=1";
     if($blood) $sql .= " AND blood_group='$blood'";
     if($location) $sql .= " AND city LIKE '%$location%'";
     

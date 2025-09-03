@@ -14,22 +14,22 @@ include('../../includes/config.php');
     <h2>Donation History</h2>
     <table>
         <tr>
-            <th>ID</th><th>Donor</th><th>Blood Group</th><th>Quantity</th><th>Date</th><th>Hospital</th>
+            <th>ID</th><th>Donor</th><th>Blood Group</th><th>Units</th><th>Date</th><th>Notes</th>
         </tr>
         <?php
-        $res = $conn->query("SELECT d.name AS donor_name, r.blood_group, r.quantity, r.date, h.name AS hospital_name 
-                             FROM donations r 
-                             JOIN donors d ON r.donor_id=d.id
-                             JOIN hospitals h ON r.hospital_id=h.id
-                             ORDER BY r.date DESC");
+        $res = $conn->query("SELECT d.donation_id, d.donation_date, d.units, d.notes, 
+                                    dn.name AS donor_name, dn.blood_group
+                             FROM donations d 
+                             JOIN donors dn ON d.donor_id=dn.donor_id
+                             ORDER BY d.donation_date DESC");
         while($row = $res->fetch_assoc()){
             echo "<tr>
-                <td></td>
+                <td>{$row['donation_id']}</td>
                 <td>{$row['donor_name']}</td>
                 <td>{$row['blood_group']}</td>
-                <td>{$row['quantity']}</td>
-                <td>{$row['date']}</td>
-                <td>{$row['hospital_name']}</td>
+                <td>{$row['units']}</td>
+                <td>{$row['donation_date']}</td>
+                <td>{$row['notes']}</td>
             </tr>";
         }
         ?>
