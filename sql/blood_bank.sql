@@ -1,5 +1,5 @@
 -- blood_bank.sql
-CREATE DATABASE IF NOT EXISTS blood_bank_db;
+CREATE DATABASE blood_bank_db;
 USE blood_bank_db;
 
 -- Donors
