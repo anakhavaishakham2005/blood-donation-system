@@ -1,6 +1,31 @@
 <?php
 include('verify.php');
 include('../../includes/config.php');
+require_once('../../includes/matching_service.php');
+
+$matchingService = new MatchingService($conn);
+
+// Process matching for new requests
+if(isset($_GET['match_request'])){
+    $request_id = $_GET['match_request'];
+    $result = $matchingService->findAndNotifyMatches($request_id);
+    
+    if($result['success']) {
+        $_SESSION['success_message'] = "Found " . $result['donors_count'] . " compatible donors and sent notifications!";
+    } else {
+        $_SESSION['error_message'] = $result['message'];
+    }
+    header("Location: manage_requests.php");
+    exit;
+}
+
+// Process all pending requests
+if(isset($_GET['match_all'])){
+    $results = $matchingService->processAllPendingRequests();
+    $_SESSION['success_message'] = "Processed " . $results['processed'] . " pending requests!";
+    header("Location: manage_requests.php");
+    exit;
+}
 
 // Approve / Reject Requests
 if(isset($_GET['approve'])){
@@ -24,6 +49,23 @@ if(isset($_GET['reject'])){
 <?php include('../../includes/header.php'); ?>
 <div class="container">
     <h2>Hospital Blood Requests</h2>
+    
+    <!-- Success/Error Messages -->
+    <?php if(isset($_SESSION['success_message'])): ?>
+        <div class="alert alert-success"><?= $_SESSION['success_message']; unset($_SESSION['success_message']); ?></div>
+    <?php endif; ?>
+    
+    <?php if(isset($_SESSION['error_message'])): ?>
+        <div class="alert alert-error"><?= $_SESSION['error_message']; unset($_SESSION['error_message']); ?></div>
+    <?php endif; ?>
+    
+    <!-- Action Buttons -->
+    <div class="action-buttons">
+        <a href="?match_all=1" class="btn btn-primary">Match All Pending Requests</a>
+        <a href="notifications.php" class="btn btn-secondary">View Notifications</a>
+        <a href="matching_stats.php" class="btn btn-info">Matching Statistics</a>
+    </div>
+    
     <table>
         <tr>
             <th>ID</th><th>Hospital</th><th>Blood Group</th><th>Quantity</th><th>Status</th><th>Action</th>
@@ -44,8 +86,9 @@ if(isset($_GET['reject'])){
                 <td>";
             
             if($row['status'] == 'pending') {
-                echo "<a href='?approve={$row['request_id']}'>Fulfill</a> |
-                      <a href='?reject={$row['request_id']}'>Cancel</a>";
+                echo "<a href='?match_request={$row['request_id']}' class='btn-match'>Find Donors</a> |
+                      <a href='?approve={$row['request_id']}' class='btn-approve'>Fulfill</a> |
+                      <a href='?reject={$row['request_id']}' class='btn-reject'>Cancel</a>";
             } else {
                 echo "<span style='color: gray;'>Processed</span>";
             }

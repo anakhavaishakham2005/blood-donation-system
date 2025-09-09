@@ -3,11 +3,13 @@
 session_start();
 require_once __DIR__ . '/../../includes/config.php';
 require_once __DIR__ . '/../../includes/functions.php';
+require_once __DIR__ . '/../../includes/notification_service.php';
 require_role('hospital');
 
 $errors = [];
 $success = "";
 $hospital_id = $_SESSION['user_id'];
+$notificationService = new NotificationService($conn);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $blood_group = strtoupper(trim($_POST['blood_group'] ?? ''));
@@ -30,6 +32,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $request_id = $stmt->insert_id;
             $success = "Request created successfully. Request ID: {$request_id}.";
 
+            // Notify admins about new request
+            $notificationService->notifyAdminNewRequest($request_id);
+
             // --- Matching donors ---
             $recipient = $blood_group;
             $acceptable = compatible_donors_for_recipient($recipient);
@@ -48,18 +53,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     }
                 }
 
-                // Notify matched donors (limit so we don't spam)
+                // Notify matched donors using the new notification service (limit so we don't spam)
                 $notify_limit = 10; // change as needed
                 $count_notified = 0;
                 foreach ($matched as $donor) {
                     if ($count_notified >= $notify_limit) break;
-                    $to = $donor['email'];
-                    $subject = "Blood Donation Request: {$recipient} needed";
-                    $body = "Hello {$donor['name']},\n\nThe hospital '{$_SESSION['user_name']}' has requested {$quantity} unit(s) of blood (Group: {$recipient}). You are identified as a compatible donor. If you are available and willing to donate, please contact the hospital or reply to this email.\n\nHospital: {$_SESSION['user_name']}\nRequest ID: {$request_id}\n\nThank you,\nBlood Bank Team";
+                    
+                    // Use the new notification service
+                    if ($notificationService->notifyDonorMatch($donor['donor_id'], $request_id)) {
+                        $count_notified++;
+                    }
+                }
 
-                    // store in notifications and attempt to send
-                    send_notification_email($to, $subject, $body);
-                    $count_notified++;
+                // Notify hospital about matched donors
+                if (!empty($matched)) {
+                    $notificationService->notifyHospitalMatch($hospital_id, $request_id, array_slice($matched, 0, $notify_limit));
                 }
 
                 $success .= " Found " . count($matched) . " compatible donors; notified top {$count_notified}.";
