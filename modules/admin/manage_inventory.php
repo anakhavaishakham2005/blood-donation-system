@@ -8,11 +8,11 @@ if(isset($_POST['update'])){
     $qty = $_POST['quantity'];
 
     // Check if record exists
-    $res = $conn->query("SELECT * FROM inventory WHERE blood_group='$blood'");
+    $res = $conn->query("SELECT * FROM blood_inventory WHERE blood_group='$blood'");
     if($res->num_rows > 0){
-        $conn->query("UPDATE inventory SET quantity=quantity+$qty WHERE blood_group='$blood'");
+        $conn->query("UPDATE blood_inventory SET units=units+$qty WHERE blood_group='$blood'");
     } else {
-        $conn->query("INSERT INTO inventory(blood_group, quantity) VALUES('$blood', $qty)");
+        $conn->query("INSERT INTO blood_inventory(blood_group, units) VALUES('$blood', $qty)");
     }
     header("Location: manage_inventory.php");
 }
@@ -40,9 +40,9 @@ if(isset($_POST['update'])){
     <table>
         <tr><th>Blood Group</th><th>Quantity</th></tr>
         <?php
-        $res = $conn->query("SELECT * FROM inventory");
+        $res = $conn->query("SELECT * FROM blood_inventory");
         while($row = $res->fetch_assoc()){
-            echo "<tr><td>{$row['blood_group']}</td><td>{$row['quantity']}</td></tr>";
+            echo "<tr><td>{$row['blood_group']}</td><td>{$row['units']}</td></tr>";
         }
         ?>
     </table>

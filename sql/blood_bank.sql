@@ -86,6 +86,10 @@ CREATE TABLE IF NOT EXISTS notifications (
 CREATE INDEX idx_donor_group ON donors(blood_group);
 CREATE INDEX idx_donor_avail ON donors(availability_status);
 
--- Insert a default admin (password will be "admin123" hashed by the PHP script; see README)
+-- -- Insert a default admin (password will be "admin123" hashed by the PHP script; see README)
+-- INSERT INTO admins (username, email, password)
+-- VALUES ('superadmin', 'admin@bloodbank.local', ''); -- fill password later via script
+
+-- Insert a default admin (plain text password for sample project)
 INSERT INTO admins (username, email, password)
-VALUES ('superadmin', 'admin@bloodbank.local', ''); -- fill password later via script
+VALUES ('admin', 'admin@bloodbank.local', 'admin123');
