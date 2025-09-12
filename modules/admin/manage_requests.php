@@ -2,17 +2,6 @@
 include('verify.php');
 include('../../includes/config.php');
 
-// Approve / Reject Requests
-if(isset($_GET['approve'])){
-    $id = $_GET['approve'];
-    $conn->query("UPDATE blood_requests SET status='fulfilled' WHERE request_id=$id");
-    header("Location: manage_requests.php");
-}
-if(isset($_GET['reject'])){
-    $id = $_GET['reject'];
-    $conn->query("UPDATE blood_requests SET status='cancelled' WHERE request_id=$id");
-    header("Location: manage_requests.php");
-}
 ?>
 <!DOCTYPE html>
 <html>
@@ -44,8 +33,8 @@ if(isset($_GET['reject'])){
                 <td>";
             
             if($row['status'] == 'pending') {
-                echo "<a href='?approve={$row['request_id']}'>Fulfill</a> |
-                      <a href='?reject={$row['request_id']}'>Cancel</a>";
+                echo "<a href='assign_donor.php?request_id={$row['request_id']}'>Assign Donor</a> |
+                      <a href='reject_request.php?request_id={$row['request_id']}'>Cancel</a>";
             } else {
                 echo "<span style='color: gray;'>Processed</span>";
             }

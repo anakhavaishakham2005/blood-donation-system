@@ -1,7 +1,7 @@
 <?php
+// modules/admin/verify.php
 session_start();
-if (!isset($_SESSION['admin_id'])) {
-    header("Location: login.php");
-    exit();
-}
+require_once __DIR__ . '/../../includes/config.php';
+require_once __DIR__ . '/../../includes/functions.php';
+require_role('admin');
 ?>
