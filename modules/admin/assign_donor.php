@@ -132,33 +132,64 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && empty($errors)) {
 	<?php endif; ?>
 
 	<?php if(empty($success) && $rstatus === 'pending'): ?>
-	<form method="post">
-		<label>Choose Donor</label>
-		<select name="donor_id" required>
-			<option value="">Select a donor</option>
-			<?php foreach($donors as $d): ?>
-				<option value="<?=htmlspecialchars($d['donor_id'])?>"><?=htmlspecialchars($d['name'])?> — <?=htmlspecialchars($d['blood_group'])?> — <?=htmlspecialchars($d['city'])?> <?php if($d['last_donation']) echo '(Last: '.htmlspecialchars($d['last_donation']).')'; ?></option>
-			<?php endforeach; ?>
-		</select>
 
-		<div style="margin-top:8px;">
-			<label>Donation Date</label>
-			<input type="date" name="donation_date" required>
-		</div>
-		<div style="margin-top:8px;">
-			<label>Units</label>
-			<input type="number" name="units" min="1" value="1" required>
-		</div>
-		<div style="margin-top:8px;">
-			<label>Notes (optional)</label>
-			<textarea name="notes"></textarea>
-		</div>
-		<div style="margin-top:12px;">
-			<button type="submit">Save Assignment</button>
-			<a href="manage_requests.php">Cancel</a>
-		</div>
-	</form>
-	<?php endif; ?>
+    <?php if(empty($donors)): ?>
+        <div class="alert alert-warning">No currently available compatible donors found.</div>
+    <?php else: ?>
+        <h4>Matched Donors (<?=count($donors)?>)</h4>
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Blood Group</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>City</th>
+                    <th>Last Donation</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach($donors as $d): ?>
+                    <tr>
+                        <td><?=htmlspecialchars($d['name'])?></td>
+                        <td><?=htmlspecialchars($d['blood_group'])?></td>
+                        <td><?=htmlspecialchars($d['phone'])?></td>
+                        <td><?=htmlspecialchars($d['email'])?></td>
+                        <td><?=htmlspecialchars($d['city'])?></td>
+                        <td><?= $d['last_donation'] ? htmlspecialchars($d['last_donation']) : 'Never' ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    <?php endif; ?>
+
+    <form method="post">
+        <label>Choose Donor</label>
+        <select name="donor_id" required>
+            <option value="">Select a donor</option>
+            <?php foreach($donors as $d): ?>
+                <option value="<?=htmlspecialchars($d['donor_id'])?>"><?=htmlspecialchars($d['name'])?> — <?=htmlspecialchars($d['blood_group'])?> — <?=htmlspecialchars($d['city'])?> <?php if($d['last_donation']) echo '(Last: '.htmlspecialchars($d['last_donation']).')'; ?></option>
+            <?php endforeach; ?>
+        </select>
+
+        <div style="margin-top:8px;">
+            <label>Donation Date</label>
+            <input type="date" name="donation_date" required>
+        </div>
+        <div style="margin-top:8px;">
+            <label>Units</label>
+            <input type="number" name="units" min="1" value="1" required>
+        </div>
+        <div style="margin-top:8px;">
+            <label>Notes (optional)</label>
+            <textarea name="notes"></textarea>
+        </div>
+        <div style="margin-top:12px;">
+            <button type="submit">Save Assignment</button>
+            <a href="manage_requests.php">Cancel</a>
+        </div>
+    </form>
+<?php endif; ?>
 </div>
 <?php include('../../includes/footer.php'); ?>
 </body>

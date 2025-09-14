@@ -39,23 +39,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	}
 }
 ?>
+<?php include_once __DIR__ . '/../../includes/header.php'; ?>
 <!DOCTYPE html>
 <html>
 <head>
 	<title>Admin Login</title>
 	<link rel="stylesheet" href="../../css/style.css">
+	
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<div class="login-container">
-	<h2>Admin Login</h2>
+	<div class="card">
+  <div class="card-body">
+    <h3 class="card-title">Blood Bank Login</h3>
+	<br>
 	<?php if($error) { echo "<p class='error'>$error</p>"; } ?>
 	<form method="POST">
-		<label>Username</label>
-		<input type="text" name="username" required>
-		<label>Password</label>
+		<div class="col-12">
+		<label class="form-label">Username</label>
+		<input type="text" name="username" required >
+		
+</div>
+		<br>
+<div class="col-12">
+	<label>Password</label>
 		<input type="password" name="password" required>
-		<button type="submit">Login</button>
+		
+</div><br>
+		<button type="submit" class="btn btn-outline-danger  ">Login</button>
 	</form>
+</div>
 </div>
 </body>
 </html>

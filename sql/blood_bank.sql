@@ -103,3 +103,13 @@ CREATE INDEX idx_donor_avail ON donors(availability_status);
 -- Insert a default admin (plain text password for sample project)
 INSERT INTO admins (username, email, password)
 VALUES ('admin', 'admin@bloodbank.local', 'admin123');
+
+
+-- new column
+ALTER TABLE donations ADD COLUMN request_id INT NULL;
+
+ALTER TABLE blood_requests
+  ADD COLUMN assigned_donor_id INT NULL,
+  ADD CONSTRAINT fk_requests_assigned_donor
+    FOREIGN KEY (assigned_donor_id) REFERENCES donors(donor_id)
+    ON DELETE SET NULL;
