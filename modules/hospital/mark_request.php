@@ -31,15 +31,5 @@ $upd->bind_param('si', $action, $request_id);
 $upd->execute();
 $upd->close();
 
-// optional: create a notification for admins (simple record)
-$admin_note = "Hospital '{$_SESSION['user_name']}' marked request #{$request_id} as {$action}.";
-$stmt2 = $conn->prepare("INSERT INTO notifications (to_email, subject, body) VALUES (?, ?, ?)");
-$to = 'admin@bloodbank.local';
-$subject = "Request #{$request_id} marked {$action}";
-$body = $admin_note;
-$stmt2->bind_param('sss', $to, $subject, $body);
-$stmt2->execute();
-$stmt2->close();
-
 header("Location: /blood-donation-system/modules/hospital/dashboard.php");
 exit;

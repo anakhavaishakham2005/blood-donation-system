@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Blood Donation Management System</title>
+	<link rel="stylesheet" href="css/style.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="bg-light">
@@ -14,6 +15,11 @@
     <a class="navbar-brand fw-bold" href="#">Blood Bank</a>
   </div>
 </nav>
+<div class="animation-container" style="margin: 10px 0 0 0;">
+  <div class="blood-drop drop1"></div>
+  <div class="blood-drop drop2"></div>
+  <div class="blood-drop drop3"></div>
+</div>
 
 <div class="container text-center mt-5">
   <h1 class="fw-bold text-danger">Welcome to the Blood Donation Management System</h1>
@@ -21,8 +27,10 @@
   <div class="mt-4">
     <a href="modules/donor/login.php" class="btn btn-outline-danger btn-lg m-2">Donor Login</a>
     <a href="modules/hospital/login.php" class="btn btn-outline-danger btn-lg m-2">Hospital Login</a>
-    <a href="modules/admin/login.php" class="btn btn-outline-dark btn-lg m-2">Admin Login</a>
+    <a href="modules/admin/login.php" class="btn btn-outline-dark btn-lg m-2">Blood Bank Login</a>
   </div>
+  
+
 </div>
 
 </body>

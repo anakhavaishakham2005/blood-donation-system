@@ -51,6 +51,11 @@ CREATE TABLE IF NOT EXISTS blood_requests (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (hospital_id) REFERENCES hospitals(hospital_id) ON DELETE CASCADE
 );
+ALTER TABLE blood_requests
+  ADD COLUMN assigned_donor_id INT NULL,
+  ADD CONSTRAINT fk_requests_assigned_donor
+    FOREIGN KEY (assigned_donor_id) REFERENCES donors(donor_id)
+    ON DELETE SET NULL;
 
 -- Donations log (when donor donates, admin records)
 CREATE TABLE IF NOT EXISTS donations (
@@ -64,6 +69,11 @@ CREATE TABLE IF NOT EXISTS donations (
   FOREIGN KEY (donor_id) REFERENCES donors(donor_id) ON DELETE CASCADE,
   FOREIGN KEY (admin_id) REFERENCES admins(admin_id) ON DELETE SET NULL
 );
+ALTER TABLE donations
+  ADD COLUMN request_id INT NULL,
+  ADD CONSTRAINT fk_donations_request
+    FOREIGN KEY (request_id) REFERENCES blood_requests(request_id)
+    ON DELETE SET NULL;
 
 -- Simple blood inventory (maintained by admin)
 CREATE TABLE IF NOT EXISTS blood_inventory (
@@ -93,3 +103,13 @@ CREATE INDEX idx_donor_avail ON donors(availability_status);
 -- Insert a default admin (plain text password for sample project)
 INSERT INTO admins (username, email, password)
 VALUES ('admin', 'admin@bloodbank.local', 'admin123');
+
+
+-- new column
+ALTER TABLE donations ADD COLUMN request_id INT NULL;
+
+ALTER TABLE blood_requests
+  ADD COLUMN assigned_donor_id INT NULL,
+  ADD CONSTRAINT fk_requests_assigned_donor
+    FOREIGN KEY (assigned_donor_id) REFERENCES donors(donor_id)
+    ON DELETE SET NULL;
