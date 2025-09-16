@@ -63,10 +63,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </select>
       </div>
 
-      <div class="col-md-4">
+      <!-- <div class="col-md-4">
         <label class="form-label">Quantity (units)</label>
         <input name="quantity" type="number" min="1" class="form-control" required value="<?=htmlspecialchars($_POST['quantity'] ?? '1')?>">
-      </div>
+      </div> -->
 
       <div class="col-12">
         <label class="form-label">Note (optional)</label>

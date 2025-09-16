@@ -176,10 +176,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && empty($errors)) {
             <label>Donation Date</label>
             <input type="date" name="donation_date" required>
         </div>
-        <div style="margin-top:8px;">
+        <!-- <div style="margin-top:8px;">
             <label>Units</label>
             <input type="number" name="units" min="1" value="1" required>
-        </div>
+        </div> -->
         <div style="margin-top:8px;">
             <label>Notes (optional)</label>
             <textarea name="notes"></textarea>

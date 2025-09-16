@@ -12,15 +12,16 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
   <div class="container">
+    <div class="logo"></div>
     <a class="navbar-brand fw-bold" href="#">Blood Bank</a>
   </div>
 </nav>
-<div class="animation-container" style="margin: 10px 0 0 0;">
+<!-- <div class="animation-container" style="margin: 10px 0 0 0;">
   <div class="blood-drop drop1"></div>
   <div class="blood-drop drop2"></div>
   <div class="blood-drop drop3"></div>
-</div>
-
+</div> -->
+<img src="front.png" alt="image donation" style="width:100%; max-height:300px; object-fit:cover; object-position:center;">
 <div class="container text-center mt-5">
   <h1 class="fw-bold text-danger">Welcome to the Blood Donation Management System</h1>
   <p class="lead">Bridging the gap between donors, hospitals, and those in need.</p>

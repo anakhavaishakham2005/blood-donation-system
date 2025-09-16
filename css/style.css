@@ -50,3 +50,14 @@
     opacity: 0;
   }
 }
+
+.logo{
+  border-radius: 50%;
+  overflow: hidden;
+  width: 5px;
+  height: 5px;
+}
+#logo{
+  width: 4px;
+  height: 4px;
+} 

@@ -15,7 +15,7 @@ include('../../includes/config.php');
     <h2>Hospital Blood Requests</h2>
     <table>
         <tr>
-            <th>ID</th><th>Hospital</th><th>Blood Group</th><th>Quantity</th><th>Status</th><th>Action</th>
+            <th>ID</th><th>Hospital</th><th>Blood Group</th><th>Status</th><th>Action</th>
         </tr>
         <?php
         $res = $conn->query("SELECT r.*, h.name AS hospital_name FROM blood_requests r JOIN hospitals h ON r.hospital_id=h.hospital_id");
@@ -28,7 +28,6 @@ include('../../includes/config.php');
                 <td>{$row['request_id']}</td>
                 <td>{$row['hospital_name']}</td>
                 <td>{$row['blood_group']}</td>
-                <td>{$row['quantity']}</td>
                 <td class='$statusClass'>{$row['status']}</td>
                 <td>";
             
