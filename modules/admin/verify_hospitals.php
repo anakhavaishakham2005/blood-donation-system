@@ -24,7 +24,7 @@ if(isset($_GET['reject'])){
 <?php include('../../includes/header.php'); ?>
 <div class="container">
     <h2>Verify Hospitals</h2>
-    <table>
+    <table class="table table-striped table-bordered">
         <tr>
             <th>ID</th><th>Name</th><th>Email</th><th>Phone</th><th>Address</th><th>City</th><th>Action</th>
         </tr>
@@ -40,7 +40,7 @@ if(isset($_GET['reject'])){
                 <td>{$row['address']}</td>
                 <td>{$row['city']}</td>
                 <td>
-                    <span style='color: green;'>Verified</span>
+                    <span class='badge bg-success'>Verified</span>
                 </td>
             </tr>";
         }

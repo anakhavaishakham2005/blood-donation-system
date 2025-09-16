@@ -24,7 +24,7 @@ if(isset($_GET['reject'])){
 <?php include('../../includes/header.php'); ?>
 <div class="container">
     <h2>Verify Donors</h2>
-    <table>
+    <table class="table table-striped table-bordered">
         <tr>
             <th>ID</th><th>Name</th><th>Blood Group</th><th>Email</th><th>Phone</th><th>Status</th><th>Action</th>
         </tr>
@@ -46,9 +46,9 @@ if(isset($_GET['reject'])){
                 <td>";
             
             if($row['availability_status'] == 1) {
-                echo "<a href='?reject={$row['donor_id']}'>Mark Unavailable</a>";
+                echo "<a class='btn btn-sm btn-outline-secondary' href='?reject={$row['donor_id']}'>Mark Unavailable</a>";
             } else {
-                echo "<a href='?approve={$row['donor_id']}'>Mark Available</a>";
+                echo "<a class='btn btn-sm btn-success' href='?approve={$row['donor_id']}'>Mark Available</a>";
             }
             
             echo "</td>

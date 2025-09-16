@@ -12,16 +12,16 @@ include('verify.php');
 
 <div class="container">
     <h2>Welcome, <?= $_SESSION['admin_name']; ?></h2>
-    <ul class="admin-links">
-        <li><a href="verify_donors.php">Verify Donors</a></li>
-        <li><a href="verify_hospitals.php">Verify Hospitals</a></li>
-        <li><a href="manage_inventory.php">Manage Inventory</a></li>
-        <li><a href="manage_requests.php">Manage Requests</a></li>
-        <li><a href="donation_history.php">Donation History</a></li>
-        <li><a href="search_donors.php">Search Donors</a></li>
-        <li><a href="profile.php">Profile</a></li>
-        <li><a href="logout.php">Logout</a></li>
-    </ul>
+    <div class="d-grid gap-2 col-md-6">
+        <a class="btn btn-danger" href="verify_donors.php">Verify Donors</a>
+        <a class="btn btn-danger" href="verify_hospitals.php">Verify Hospitals</a>
+        <a class="btn btn-danger" href="manage_inventory.php">Manage Inventory</a>
+        <a class="btn btn-danger" href="manage_requests.php">Manage Requests</a>
+        <a class="btn btn-danger" href="donation_history.php">Donation History</a>
+        <a class="btn btn-danger" href="search_donors.php">Search Donors</a>
+        <a class="btn btn-outline-danger" href="profile.php">Profile</a>
+        <a class="btn btn-outline-secondary" href="logout.php">Logout</a>
+    </div>
 </div>
 
 <?php include('../../includes/footer.php'); ?>
