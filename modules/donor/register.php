@@ -20,7 +20,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // basic validation
     if (!$name) $errors[] = "Name is required.";
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) $errors[] = "Valid email required.";
-    if (strlen($password) < 6) $errors[] = "Password must be at least 6 characters.";
+    // enforce strong password: min 8 chars, at least 1 number and 1 special character
+    if (!preg_match('/^(?=.*\\d)(?=.*[^a-zA-Z0-9]).{8,}$/', $password)) {
+        $errors[] = "Password must be at least 8 characters, include a number and a special character.";
+    }
     if ($password !== $confirm) $errors[] = "Password confirmation does not match.";
     $valid_groups = ['A+','A-','B+','B-','AB+','AB-','O+','O-'];
     if (!in_array($blood_group, $valid_groups)) $errors[] = "Select a valid blood group.";
@@ -76,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
       <div class="col-md-4">
         <label class="form-label">Password</label>
-        <input name="password" type="password" class="form-control" required>
+        <input name="password" type="password" class="form-control" required pattern="^(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,}$" title="At least 8 characters, including a number and a special character">
       </div>
 
       <div class="col-md-4">

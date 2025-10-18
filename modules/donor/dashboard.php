@@ -82,10 +82,42 @@ if ($res) {
     <div class="card">
       <div class="card-body">
         <h6>Actions</h6>
-        <form method="post" action="/blood-donation-system/modules/donor/update_availability.php">
-          <!-- This endpoint toggles availability manually; create it later -->
-          <button class="btn btn-outline-danger btn-sm" disabled>Toggle Availability (coming)</button>
-        </form>
+        <?php
+          // compute 90-day eligibility for enabling
+          $can_enable = false;
+          if (empty($last_donation)) {
+              $can_enable = true;
+          } else {
+              try {
+                  $ld = new DateTime($last_donation);
+                  $lim = new DateTime();
+                  $lim->modify('-90 days');
+                  $can_enable = ($ld <= $lim);
+              } catch (Exception $e) {
+                  $can_enable = false;
+              }
+          }
+        ?>
+        <?php if (!empty($_SESSION['flash_error'])): ?>
+          <div class="alert alert-danger mb-2"><?=$_SESSION['flash_error']; unset($_SESSION['flash_error']);?></div>
+        <?php endif; ?>
+        <?php if (!empty($_SESSION['flash_success'])): ?>
+          <div class="alert alert-success mb-2"><?=$_SESSION['flash_success']; unset($_SESSION['flash_success']);?></div>
+        <?php endif; ?>
+
+        <div class="d-flex gap-2">
+          <form method="post" action="/blood-donation-system/modules/donor/update_availability.php">
+            <input type="hidden" name="set" value="1">
+            <button class="btn btn-success btn-sm" <?=((int)$availability_status===1||!$can_enable)?'disabled':'';?>>Enable Availability</button>
+          </form>
+          <form method="post" action="/blood-donation-system/modules/donor/update_availability.php">
+            <input type="hidden" name="set" value="0">
+            <button class="btn btn-secondary btn-sm" <?=((int)$availability_status===0)?'disabled':'';?>>Disable Availability</button>
+          </form>
+        </div>
+        <?php if(!(int)$availability_status===1 && !$can_enable && $last_donation): ?>
+          <p class="small text-muted mt-2">You can enable availability 90 days after your last donation.</p>
+        <?php endif; ?>
       </div>
     </div>
   </div>

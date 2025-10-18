@@ -137,7 +137,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && empty($errors)) {
         <div class="alert alert-warning">No currently available compatible donors found.</div>
     <?php else: ?>
         <h4>Matched Donors (<?=count($donors)?>)</h4>
-        <table class="table table-sm">
+        <table class="table table-sm table-hover">
             <thead>
                 <tr>
                     <th>Name</th>
@@ -176,17 +176,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && empty($errors)) {
             <label>Donation Date</label>
             <input type="date" name="donation_date" required>
         </div>
-        <div style="margin-top:8px;">
+        <!-- <div style="margin-top:8px;">
             <label>Units</label>
             <input type="number" name="units" min="1" value="1" required>
-        </div>
+        </div> -->
         <div style="margin-top:8px;">
             <label>Notes (optional)</label>
             <textarea name="notes"></textarea>
         </div>
-        <div style="margin-top:12px;">
-            <button type="submit">Save Assignment</button>
-            <a href="manage_requests.php">Cancel</a>
+        <div style="margin-top:12px;" class="d-flex gap-2">
+            <button type="submit" class="btn btn-success">Save Assignment</button>
+            <a href="manage_requests.php" class="btn btn-outline-secondary">Cancel</a>
         </div>
     </form>
 <?php endif; ?>

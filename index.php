@@ -15,11 +15,11 @@
     <a class="navbar-brand fw-bold" href="#">Blood Bank</a>
   </div>
 </nav>
-<div class="animation-container" style="margin: 10px 0 0 0;">
+<!-- <div class="animation-container" style="margin: 10px 0 0 0;">
   <div class="blood-drop drop1"></div>
   <div class="blood-drop drop2"></div>
   <div class="blood-drop drop3"></div>
-</div>
+</div> -->
 
 <div class="container text-center mt-5">
   <h1 class="fw-bold text-danger">Welcome to the Blood Donation Management System</h1>
