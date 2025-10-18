@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <meta http-equiv="refresh" content="6">
+
+</head>
+<body>
+    <a href="index.php">
+        <div class="top">
+            <div class="logo"> <img src="logo.png" alt="DonorNet Logo"></div>
+            <h1>DonorNet</h1>
+        </div>
+        
+        <br>
+        <div class="about">
+    <h2>About the Project</h2>
+    <p>
+        DonorNet is our DBMS course project, designed to build a simple yet powerful 
+        <strong>Blood Donation Management System</strong>.  
+        It helps in maintaining donor records, accepting blood requests from hospitals and matching the requests with available donors, showcasing how databases can solve real-world problems.  
+    </p>
+</div>
+
+<div class="team-intro">
+    <h2>Meet the Team</h2>
+    
+</div>
+
+        <div class="cards">
+        <div class="card">
+    <h3>Anakha S</h3>
+    <h3>Reg No: LBT23CS017</h3>
+</div>
+        <div class="card">
+    <h3>Afra B</h3>
+    <h3>Reg No: LBT23CS007</h3>
+</div>
+
+<div class="card">
+    <h3>Amna S Navas</h3>
+    <h3>Reg No: LBT23CS016</h3>
+</div>
+
+
+
+<div class="card">
+    <h3>Anakha S G</h3>
+    <h3>Reg No: LBT23CS018</h3>
+</div>
+
+<div class="card">
+    <h3>Anjana Satheesh</h3>
+    <h3>Reg No: LBT23CS024</h3>
+</div>
+
+<div class="card">
+    <h3>Annie Reji</h3>
+    <h3>Reg No: LBT23CS026</h3>
+</div>
+
+<div class="card">
+    <h3>Ardhana S Anil</h3>
+    <h3>Reg No: LBT23CS031</h3>
+</div>
+</div>
+</body></a>
+<style>
+    *{  
+        margin: 0;
+        padding: 0;
+    }
+        html, body {
+        height: 100%; /* Make html and body fill the viewport */
+        width: 100%; /* Full viewport width */
+        margin: 0;   /* Remove default body margin */
+    }
+    .container {
+        height: 100%; /* Make container fill the body */
+        width: 100%; /* Full viewport width */
+        display: flex;
+        margin: 0;
+        padding: 0;
+    }
+    .top {
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        margin-top: 0px;
+        height: 25%; /* Now 25% of the container's height */
+        width: 100%;
+        /* background:linear-gradient(45deg,#fecdbc, #fc967c, rgb(255, 255, 255)); */
+        background-color: rgb(193, 193, 193);
+    }
+    h1{
+        color: rgb(182, 1, 1);
+        text-align: center;
+        padding-top: 20px;
+        font-size: 100px;
+    }
+    .cards{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .card {
+        height: 100px; /* Now 75% of the container's height */
+        width: fit-content;
+        background: linear-gradient(45deg, #f8d6d0, rgb(82, 189, 255)); /* Light grey background */
+        display: flex;
+        color: black;
+        font-style: italic;
+        margin:10px;
+        padding:20px;
+        border-radius: 30px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        flex-direction: column;
+        justify-content: center; /* Center content vertically */
+        align-items: center; /* Center content horizontally */
+    }
+    .card:hover {
+        background: linear-gradient(315deg, #a4f9c6, rgb(255, 177, 177)); /* Light grey background */
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        transform: translateY(-5px);
+        transition: all 0.3s ease;
+    }
+    .about, .team-intro {
+    max-width: 900px;
+    margin: 30px auto;
+    text-align: center;
+    padding: 20px;
+    font-size: 20px;
+    line-height: 1.6;
+    color: #333;
+}
+a{
+    text-decoration: none;
+}
+.about h2, .team-intro h2 {
+    font-size: 36px;
+    color: rgb(17, 1, 1);
+    margin-bottom: 15px;
+}.logo {
+    border-radius: 50%;
+    margin-left: 20px;
+    width: 80px; /* Adjust size as needed */
+    height: 80px;
+    position: absolute;
+    top: 28px;
+    left: 10px;
+    overflow: hidden;
+}
+img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+</style>
+</html>
